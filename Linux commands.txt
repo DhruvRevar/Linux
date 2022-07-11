@@ -1,0 +1,35 @@
+cd: Change directory
+ls: list of items in the file
+pwd: location of your current directory
+touch (file name): creates new file
+cat (file name): displays contents of the file          
+echo (text to add in the file) > (file name): Adds content in the file
+nano (file name): opens nano editor to create and edit text files
+python3 (file name.py): run a python program
+mdfir (dir name): make a directory
+mv (file name to be moved) (name of file in which it is to be moved): moves one file to another
+cp (name of file to be copied) (new name of the file in which it is to be pasted): copy and paste a file in same directory
+rm (file name): delete a file permanently
+rm (directory name) -r: delete a directory
+cp (/home/encode/...entire directory.../new file name): copy a file and paste into another directory
+
+
+sudo ifconfig: ip address
+sudo su: run all commands as a root user (without typing sudo)
+sudo (touch, nano,....): make and edit files for root accout only and normal user cannot access it
+
+ping (website name): to ping or check ip address of any website
+nslookup (website name):     -- '' --
+whois (website name): gather info about website
+whatweb (website name/ip address): scan website
+whatweb --help: info about whatweb and its plugins
+whatweb (ip address starting range [Eg: 192.168.1.1])-(ip address ending range [Eg: 192.168.1.255]) --aggression (aggression level 1 to 3) -v : Scans for the connections in that ip address range
+theHarvester -d (domain name) -b (source eg: google/yahoo/all): gather emails of a specific website
+(google search) hunter.io: Alternative for theHarvester if it doesn't work
+git clone (link of the github file): download any file from github
+python3 sherlock.py (username to be searched): searches for the username in all the websites
+
+sudo arp --help: arp tool is used to scan your network
+sudo arp -a: to scan a network and number of hosts in it 
+sudo netdiscover: scans for devices connected to your network (same as arp tool but better than that)
+netstat: to check router ip address
